@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Disco</title>
+        <style>
+            div{
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+                float: left;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <script>
+            let n = +prompt('How many dance tiles do you want? ','99');
+            let speed = +prompt('How fast do you want colors to change (0.5-fastest, 10-slowest):','1');
+            speed *= 1000;
+
+            for(let i = 0;i < n;i++){
+                let d = document.createElement('div');
+                document.body.appendChild(d);
+            }
+
+            let divs = document.getElementsByTagName('div');
+            let isColored = new Array(n);
+
+            function rndColor(){
+                return Math.floor(Math.random() * 256);
+            }
+
+            function color(){
+                return `rgb(${rndColor()}, ${rndColor()}, ${rndColor()})`;
+            }
+
+            for(let i = 0;i < n;i++){
+                divs[i].onmouseover = function(e){
+                    e.target.style.backgroundColor = color();
+                    isColored[i] = true;
+                }
+            }
+
+            
+            (function disco(){
+                for(let i = 0; i < n;i++){
+                    if (isColored[i]){
+                        divs[i].style.backgroundColor = color();
+                    }
+                }
+                setTimeout(disco, speed);
+            }
+            )();
+        </script>
+    </body>
+</html>
